@@ -1,41 +1,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-
-// Tweet bubble component
-const TweetBubble = ({ content, darkMode }) => {
-  const handleTweetClick = () => {
-    // Encode the tweet content for the URL
-    const encodedTweet = encodeURIComponent(content);
-    // Open Twitter intent URL in a new tab
-    window.open(`https://twitter.com/intent/tweet?text=${encodedTweet}`, '_blank');
-  };
-
-  return (
-    <div className={`mb-4 p-4 rounded-xl shadow-md border ${
-      darkMode 
-        ? 'bg-gray-700 border-gray-600 hover:bg-gray-650' 
-        : 'bg-white border-blue-100 hover:shadow-lg'
-    } transition-all duration-200 transform hover:-translate-y-1`}>
-      <p className={`font-medium ${darkMode ? 'text-white' : 'text-gray-800'}`}>{content}</p>
-      <div className="flex justify-end mt-2">
-        <button 
-          onClick={handleTweetClick}
-          title="Tweet this"
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm ${
-            darkMode 
-              ? 'bg-blue-500 hover:bg-blue-600 text-white' 
-              : 'bg-blue-500 hover:bg-blue-600 text-white'
-          }`}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-          </svg>
-          Tweet
-        </button>
-      </div>
-    </div>
-  );
-};
+import TweetBubble from '../src/components/TweetBubble';
+import SavedTweets from '../src/components/SavedTweets';
 
 export default function Home() {
   const [text, setText] = useState('');
@@ -45,6 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [savedTweetsOpen, setSavedTweetsOpen] = useState(false);
 
   // Initialize dark mode from user preference or localStorage
   useEffect(() => {
@@ -71,6 +38,10 @@ export default function Home() {
 
   const toggleDarkMode = () => {
     setDarkMode(prev => !prev);
+  };
+
+  const toggleSavedTweets = () => {
+    setSavedTweetsOpen(prev => !prev);
   };
 
   const handleSubmit = async (e) => {
@@ -129,7 +100,22 @@ export default function Home() {
       </Head>
 
       <div className="container mx-auto max-w-3xl px-4 py-8 md:py-12">
-        <header className="flex justify-end mb-4">
+        <header className="flex justify-between mb-4">
+          <button
+            onClick={toggleSavedTweets}
+            className={`flex items-center gap-1.5 p-2 rounded-lg transition-colors duration-300 ${
+              darkMode 
+                ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                : 'bg-blue-100 hover:bg-blue-200 text-gray-700'
+            }`}
+            aria-label="Toggle saved tweets"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+            </svg>
+            <span className="hidden sm:inline">Saved Tweets</span>
+          </button>
+
           <button 
             onClick={toggleDarkMode}
             className={`p-2 rounded-full transition-colors duration-300 ${
@@ -288,6 +274,9 @@ export default function Home() {
           <p>Powered by Claude AI • Built with Next.js</p>
         </footer>
       </div>
+      
+      {/* Saved Tweets Sidebar */}
+      <SavedTweets darkMode={darkMode} isOpen={savedTweetsOpen} />
     </div>
   );
 } 
