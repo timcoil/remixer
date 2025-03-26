@@ -5,6 +5,8 @@ yarn-debug.log
 yarn-error.log
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
+.pnpm-store/
 
 # Build outputs
 dist/
@@ -13,6 +15,13 @@ out/
 .next/
 .nuxt/
 .cache/
+.turbo/
+.output/
+.vite/
+.astro/
+.vercel/
+.netlify/
+.serverless/
 
 # Environment variables
 .env
@@ -20,6 +29,10 @@ out/
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
+.env.development
+.env.test
+.env.production
 
 # IDE and editor files
 .idea/
@@ -29,14 +42,42 @@ out/
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+*.code-workspace
+.history/
+*.iml
+.project
+.classpath
+.settings/
+*.launch
+*.toml
+.vs/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Testing
 coverage/
 .nyc_output/
+.nyc/
+playwright-report/
+playwright/.cache/
+cypress/videos/
+cypress/screenshots/
+.jest/
+__snapshots__/
+*.snap
 
 # Logs
 logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
 # OS generated files
 .DS_Store
@@ -46,6 +87,7 @@ logs/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # Miscellaneous
 .tmp/
@@ -53,3 +95,24 @@ temp/
 tmp/
 .sass-cache/
 .eslintcache
+.stylelintcache
+.cache-loader
+.parcel-cache
+.rollup.cache
+tsconfig.tsbuildinfo
+
+# Next.js specific
+.next/
+next-env.d.ts
+.vercel
+.turbo
+.swc/
+
+# Tailwind specific
+.tailwind/
+tailwind.config.js.bak
+
+# Development tools
+.eslintcache
+.stylelintcache
+.prettiercache

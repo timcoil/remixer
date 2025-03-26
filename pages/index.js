@@ -12,6 +12,7 @@ export default function Home() {
   const [error, setError] = useState('');
   const [darkMode, setDarkMode] = useState(false);
   const [savedTweetsOpen, setSavedTweetsOpen] = useState(false);
+  const [savedTweetsCount, setSavedTweetsCount] = useState(0);
 
   // Initialize dark mode from user preference or localStorage
   useEffect(() => {
@@ -101,21 +102,6 @@ export default function Home() {
 
       <div className="container mx-auto max-w-3xl px-4 py-8 md:py-12">
         <header className="flex justify-between mb-4">
-          <button
-            onClick={toggleSavedTweets}
-            className={`flex items-center gap-1.5 p-2 rounded-lg transition-colors duration-300 ${
-              darkMode 
-                ? 'bg-gray-700 hover:bg-gray-600 text-white' 
-                : 'bg-blue-100 hover:bg-blue-200 text-gray-700'
-            }`}
-            aria-label="Toggle saved tweets"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-            </svg>
-            <span className="hidden sm:inline">Saved Tweets</span>
-          </button>
-
           <button 
             onClick={toggleDarkMode}
             className={`p-2 rounded-full transition-colors duration-300 ${
@@ -137,7 +123,7 @@ export default function Home() {
           </button>
         </header>
 
-        <main className={`bg-white rounded-2xl shadow-xl p-8 ${darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'}`}>
+        <main className={`bg-white rounded-2xl shadow-xl p-8 ${darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'} mr-12`}>
           <div className="flex items-center justify-center mb-8">
             <h1 className={`text-4xl font-extrabold ${
               darkMode 
@@ -276,7 +262,12 @@ export default function Home() {
       </div>
       
       {/* Saved Tweets Sidebar */}
-      <SavedTweets darkMode={darkMode} isOpen={savedTweetsOpen} />
+      <SavedTweets 
+        darkMode={darkMode} 
+        isOpen={savedTweetsOpen} 
+        onClose={toggleSavedTweets}
+        onTweetCountChange={setSavedTweetsCount}
+      />
     </div>
   );
 } 
