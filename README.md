@@ -18,4 +18,4 @@ A content remixer tool using React.
 1. Add in another AI API
 2. Add a way to upload audio files to have them transcribed
 3. Click to tweet or to schedule a tweet from the output
-4. Add a way to save teh remixed output to a database
+4. Add a way to save teh remixed output to a database# remixer
